@@ -6,20 +6,19 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const result = {};
   const lines = sourceString.split(';');
 
-  lines.forEach((line) => {
+  return lines.reduce((result, line) => {
     const trimmedLine = line.trim();
 
     if (!trimmedLine) {
-      return;
+      return result;
     }
 
     const colonIndex = trimmedLine.indexOf(':');
 
     if (colonIndex === -1) {
-      return;
+      return result;
     }
 
     const property = trimmedLine.slice(0, colonIndex).trim();
@@ -28,9 +27,9 @@ function convertToObject(sourceString) {
     if (property && value) {
       result[property] = value;
     }
-  });
 
-  return result;
+    return result;
+  }, {});
 }
 
 module.exports = convertToObject;
