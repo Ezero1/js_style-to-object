@@ -6,31 +6,31 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const result = {}; // правильне ім'я змінної для результату
+  const result = {};
   const lines = sourceString.split(';');
 
-  for (let line of lines) {
-    line = line.trim();
+  lines.forEach((line) => {
+    const trimmedLine = line.trim();
 
-    if (!line) {
-      continue;
+    if (!trimmedLine) {
+      return;
     }
 
-    const colonIndex = line.indexOf(':');
+    const colonIndex = trimmedLine.indexOf(':');
 
     if (colonIndex === -1) {
-      continue;
+      return;
     }
 
-    const property = line.slice(0, colonIndex).trim();
-    const value = line.slice(colonIndex + 1).trim();
+    const property = trimmedLine.slice(0, colonIndex).trim();
+    const value = trimmedLine.slice(colonIndex + 1).trim();
 
     if (property && value) {
       result[property] = value;
     }
-  }
+  });
 
-  return result; // повертаємо результат
+  return result;
 }
 
-module.exports = convertToObject; // це правильно розташовано
+module.exports = convertToObject;
